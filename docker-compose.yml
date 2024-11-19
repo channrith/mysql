@@ -4,25 +4,32 @@ networks:
 
 services:
   mysql:
-    platform: linux/x86_64
+    platform: ${PLATFORM:-linux/x86_64} # Configurable platform for flexibility, use linux/x86_64 as default value
+    # platform: linux/arm64/v8
     image: mysql:5.7
+    container_name: mysql-container
     restart: on-failure:5
     tty: true
     ports:
       - 3306:3306
     volumes:
-      - ./mysql/data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql # Persistent data storage
+      - ./mysql/config:/etc/mysql/conf.d # Custom configuration directory
+      - ./mysql/logs:/var/log/mysql # Separate log storage
     command:
       [
         'mysqld',
-        '--character-set-server=utf8mb4', # set UTF-8 encoding
-        '--collation-server=utf8mb4_unicode_ci', # set collation for Unicode compatibility
+        '--character-set-server=utf8mb4', # Set UTF-8 encoding
+        '--collation-server=utf8mb4_unicode_ci', # Set collation for Unicode compatibility
         '--default-authentication-plugin=mysql_native_password', # ensures compatibility with older MySQL clients
-        '--log-error=/var/lib/mysql/mysql-error.log' # sets the location for error logs
+        '--log-error=/var/lib/mysql/mysql-error.log' # Set the location for error logs
       ]
     environment:
-      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER:-root} # if not provided, use root as default value
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER:-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?} # Variable must be set
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app_db}
+      MYSQL_USER: ${MYSQL_USER:-app_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
     networks:
       - local_docker
 
