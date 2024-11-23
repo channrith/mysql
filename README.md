@@ -17,25 +17,6 @@ This guide explains how to set up and run a MySQL container using Docker Compose
    ```
    > **Tip:** Never hardcode sensitive credentials like root passwords in the Compose file. Use environment variables to keep them secure.
 
-4. Additional Tips
-   
-   Check Container Status
-
-   ```bash
-   docker compose ps
-   ```
-   To inspect logs:
-   ```bash
-   docker compose logs
-   ```
-   To rebuild and start fresh:
-   ```bash
-   docker compose down -v && docker compose up -d --build
-   ```
-   This removes all data and volumes associated with the container.
-
-   For more information, refer to the [Docker Compose documentation](https://docs.docker.com/compose/).
-
 ---
 
 ## Connecting to MySQL
