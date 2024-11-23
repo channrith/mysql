@@ -4,7 +4,7 @@ networks:
 
 services:
   mysql:
-    platform: ${PLATFORM:-linux/x86_64} # Configurable platform for flexibility, use linux/x86_64 as default value
+    platform: ${PLATFORM:-linux/x86_64}
     # platform: linux/arm64/v8
     image: mysql:5.7
     container_name: mysql-container
@@ -26,7 +26,7 @@ services:
       ]
     environment:
       MYSQL_ROOT_USER: ${MYSQL_ROOT_USER:-root}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?} # Variable must be set
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-app_db}
       MYSQL_USER: ${MYSQL_USER:-app_user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
