@@ -41,6 +41,7 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+      PMA_ABSOLUTE_TIMEOUT: 28800 # Sets phpMyAdmin session timeout to 8 hours
     depends_on:
       - mysql
     networks:
